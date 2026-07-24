@@ -1,29 +1,46 @@
-# Welcome to your Lovable project
+# ScamShield AI
 
-This project was built with [Lovable](https://lovable.dev).
+AI-powered scam detection web app. Paste a suspicious WhatsApp / SMS / email
+message or upload a screenshot, and ScamShield AI will flag warning signs and
+suggest safe next steps in **Simple English** or **Roman Urdu**.
 
-## Build with Lovable
+> Stage 1 — project scaffold only. AI analysis, upload, and result UI arrive
+> in later stages.
 
-Open your project in the [Lovable editor](https://lovable.dev) and keep building.
+## Tech stack
 
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: connect the project to GitHub and every change made in Lovable is committed straight to your repository.
-- **Full ownership**: this code is yours. Push to your repository and your changes sync back into Lovable, ready for your next prompt.
+- TanStack Start (React 19 + Vite 7)
+- TypeScript
+- Tailwind CSS v4
+- Lovable AI Gateway (added in a later stage)
 
-## Development
+## Folder structure
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
-
-```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
-npm run dev
+```
+src/
+  routes/              # File-based routes (TanStack Router)
+  components/
+    layout/            # Header, footer, shell components
+    scam/              # Scam-analysis specific components
+    ui/                # Reusable UI primitives
+  lib/                 # Shared libs (AI client, error reporting, etc.)
+  types/               # Shared TypeScript types
+  utils/               # Pure utility functions
 ```
 
-## Built with
+## Local development
 
-- TanStack Start
-- TypeScript
-- React
-- Tailwind CSS
+```bash
+bun install
+bun run dev
+```
+
+## Environment variables
+
+Copy `.env.example` to `.env.local`. No keys are required for Stage 1.
+
+## Safety principles
+
+- Messages and screenshots are never permanently stored.
+- Suspicious links are never auto-opened.
+- AI results are guidance, not a guarantee — always verify through official channels.
