@@ -4,29 +4,27 @@ AI-powered scam detection web app. Paste a suspicious WhatsApp / SMS / email
 message or upload a screenshot, and ScamShield AI will flag warning signs and
 suggest safe next steps in **Simple English** or **Roman Urdu**.
 
-> Stage 1 — project scaffold only. AI analysis, upload, and result UI arrive
-> in later stages.
+## Features
+
+- Paste a suspicious message (WhatsApp, SMS, email, job offer, payment request).
+- Upload a screenshot (JPG, PNG, WEBP, up to 5 MB).
+- Choose response language: Simple English or Roman Urdu.
+- Risk assessment: Low, Medium, High, or Unable to Confirm.
+- Warning signs, suspicious requests, and link concerns.
+- Recommended safety actions.
+- Confidence score with clear explanation.
+- Copy, download and print the safety report.
+- Automatic best-effort masking of obvious sensitive data (phones, emails, CNIC, cards, OTPs).
+- Suspicious links are never clickable.
+- Content is not permanently stored.
 
 ## Tech stack
 
 - TanStack Start (React 19 + Vite 7)
 - TypeScript
 - Tailwind CSS v4
-- Lovable AI Gateway (added in a later stage)
-
-## Folder structure
-
-```
-src/
-  routes/              # File-based routes (TanStack Router)
-  components/
-    layout/            # Header, footer, shell components
-    scam/              # Scam-analysis specific components
-    ui/                # Reusable UI primitives
-  lib/                 # Shared libs (AI client, error reporting, etc.)
-  types/               # Shared TypeScript types
-  utils/               # Pure utility functions
-```
+- Lovable AI Gateway (via Vercel AI SDK)
+- Zod for schema validation
 
 ## Local development
 
@@ -37,10 +35,14 @@ bun run dev
 
 ## Environment variables
 
-Copy `.env.example` to `.env.local`. No keys are required for Stage 1.
+`LOVABLE_API_KEY` is provisioned automatically inside Lovable. When running
+outside Lovable, add it to `.env.local` (server-side only, never prefix with
+`VITE_`).
 
-## Safety principles
+## Testing
 
-- Messages and screenshots are never permanently stored.
-- Suspicious links are never auto-opened.
-- AI results are guidance, not a guarantee — always verify through official channels.
+See `TESTING.md`.
+
+## Security
+
+See `SECURITY.md`.

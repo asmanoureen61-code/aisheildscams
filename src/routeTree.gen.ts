@@ -9,38 +9,235 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as SupportedScamsRouteImport } from './routes/supported-scams'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SafetyTipsRouteImport } from './routes/safety-tips'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AnalyseRouteImport } from './routes/analyse'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiAnalyseScamRouteImport } from './routes/api/analyse-scam'
 
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportedScamsRoute = SupportedScamsRouteImport.update({
+  id: '/supported-scams',
+  path: '/supported-scams',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SafetyTipsRoute = SafetyTipsRouteImport.update({
+  id: '/safety-tips',
+  path: '/safety-tips',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowItWorksRoute = HowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DisclaimerRoute = DisclaimerRouteImport.update({
+  id: '/disclaimer',
+  path: '/disclaimer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalyseRoute = AnalyseRouteImport.update({
+  id: '/analyse',
+  path: '/analyse',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAnalyseScamRoute = ApiAnalyseScamRouteImport.update({
+  id: '/api/analyse-scam',
+  path: '/api/analyse-scam',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analyse': typeof AnalyseRoute
+  '/contact': typeof ContactRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/privacy': typeof PrivacyRoute
+  '/safety-tips': typeof SafetyTipsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/supported-scams': typeof SupportedScamsRoute
+  '/terms': typeof TermsRoute
+  '/api/analyse-scam': typeof ApiAnalyseScamRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analyse': typeof AnalyseRoute
+  '/contact': typeof ContactRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/privacy': typeof PrivacyRoute
+  '/safety-tips': typeof SafetyTipsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/supported-scams': typeof SupportedScamsRoute
+  '/terms': typeof TermsRoute
+  '/api/analyse-scam': typeof ApiAnalyseScamRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/analyse': typeof AnalyseRoute
+  '/contact': typeof ContactRoute
+  '/disclaimer': typeof DisclaimerRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/privacy': typeof PrivacyRoute
+  '/safety-tips': typeof SafetyTipsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/supported-scams': typeof SupportedScamsRoute
+  '/terms': typeof TermsRoute
+  '/api/analyse-scam': typeof ApiAnalyseScamRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/analyse'
+    | '/contact'
+    | '/disclaimer'
+    | '/how-it-works'
+    | '/privacy'
+    | '/safety-tips'
+    | '/sitemap.xml'
+    | '/supported-scams'
+    | '/terms'
+    | '/api/analyse-scam'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/analyse'
+    | '/contact'
+    | '/disclaimer'
+    | '/how-it-works'
+    | '/privacy'
+    | '/safety-tips'
+    | '/sitemap.xml'
+    | '/supported-scams'
+    | '/terms'
+    | '/api/analyse-scam'
+  id:
+    | '__root__'
+    | '/'
+    | '/analyse'
+    | '/contact'
+    | '/disclaimer'
+    | '/how-it-works'
+    | '/privacy'
+    | '/safety-tips'
+    | '/sitemap.xml'
+    | '/supported-scams'
+    | '/terms'
+    | '/api/analyse-scam'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnalyseRoute: typeof AnalyseRoute
+  ContactRoute: typeof ContactRoute
+  DisclaimerRoute: typeof DisclaimerRoute
+  HowItWorksRoute: typeof HowItWorksRoute
+  PrivacyRoute: typeof PrivacyRoute
+  SafetyTipsRoute: typeof SafetyTipsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SupportedScamsRoute: typeof SupportedScamsRoute
+  TermsRoute: typeof TermsRoute
+  ApiAnalyseScamRoute: typeof ApiAnalyseScamRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/supported-scams': {
+      id: '/supported-scams'
+      path: '/supported-scams'
+      fullPath: '/supported-scams'
+      preLoaderRoute: typeof SupportedScamsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/safety-tips': {
+      id: '/safety-tips'
+      path: '/safety-tips'
+      fullPath: '/safety-tips'
+      preLoaderRoute: typeof SafetyTipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/disclaimer': {
+      id: '/disclaimer'
+      path: '/disclaimer'
+      fullPath: '/disclaimer'
+      preLoaderRoute: typeof DisclaimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analyse': {
+      id: '/analyse'
+      path: '/analyse'
+      fullPath: '/analyse'
+      preLoaderRoute: typeof AnalyseRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +245,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/analyse-scam': {
+      id: '/api/analyse-scam'
+      path: '/api/analyse-scam'
+      fullPath: '/api/analyse-scam'
+      preLoaderRoute: typeof ApiAnalyseScamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnalyseRoute: AnalyseRoute,
+  ContactRoute: ContactRoute,
+  DisclaimerRoute: DisclaimerRoute,
+  HowItWorksRoute: HowItWorksRoute,
+  PrivacyRoute: PrivacyRoute,
+  SafetyTipsRoute: SafetyTipsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SupportedScamsRoute: SupportedScamsRoute,
+  TermsRoute: TermsRoute,
+  ApiAnalyseScamRoute: ApiAnalyseScamRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
