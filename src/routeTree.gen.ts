@@ -10,33 +10,43 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ApiAnalyseScamRouteImport } from './routes/api/analyse-scam'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiAnalyseScamRoute = ApiAnalyseScamRouteImport.update({
+  id: '/api/analyse-scam',
+  path: '/api/analyse-scam',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/api/analyse-scam': typeof ApiAnalyseScamRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/api/analyse-scam': typeof ApiAnalyseScamRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/api/analyse-scam': typeof ApiAnalyseScamRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/api/analyse-scam'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/api/analyse-scam'
+  id: '__root__' | '/' | '/api/analyse-scam'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ApiAnalyseScamRoute: typeof ApiAnalyseScamRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +58,19 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/analyse-scam': {
+      id: '/api/analyse-scam'
+      path: '/api/analyse-scam'
+      fullPath: '/api/analyse-scam'
+      preLoaderRoute: typeof ApiAnalyseScamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ApiAnalyseScamRoute: ApiAnalyseScamRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
