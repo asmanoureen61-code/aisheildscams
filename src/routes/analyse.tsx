@@ -1,29 +1,36 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { AlertTriangle } from "lucide-react";
+import { AlertTriangle, Loader2, ScanText } from "lucide-react";
 
 import { PageShell } from "@/components/layout/PageShell";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Textarea } from "@/components/ui/textarea";
 import { LanguageSelector } from "@/components/scam/LanguageSelector";
 import { MessageTextarea, isValidMessage } from "@/components/scam/MessageTextarea";
 import { ScreenshotUpload } from "@/components/scam/ScreenshotUpload";
 import { PrivacyNotice } from "@/components/scam/PrivacyNotice";
 import { ConfirmationCheckbox } from "@/components/scam/ConfirmationCheckbox";
 import { ResultSkeleton, ResultView } from "@/components/scam/ResultView";
-import type { ApiResponse, Language, ScamAnalysisResult } from "@/types/scam";
+import type {
+  ApiResponse,
+  ExtractedScreenshotText,
+  Language,
+  ScamAnalysisResult,
+} from "@/types/scam";
 
 export const Route = createFileRoute("/analyse")({
   head: () => ({
     meta: [
-      { title: "Analyse a message · ScamShield AI" },
+      { title: "Analyse a message · Scam Detector AI" },
       {
         name: "description",
         content:
           "Paste a suspicious WhatsApp, SMS or email message, or upload a screenshot, and get an AI safety assessment.",
       },
-      { property: "og:title", content: "Analyse a message · ScamShield AI" },
+      { property: "og:title", content: "Analyse a message · Scam Detector AI" },
       {
         property: "og:description",
         content:
@@ -42,19 +49,58 @@ type Status =
   | { kind: "loading" }
   | { kind: "error"; message: string }
   | { kind: "success"; data: ScamAnalysisResult };
+type Extraction =
+  | { kind: "idle" }
+  | { kind: "loading" }
+  | { kind: "error"; message: string }
+  | { kind: "done"; isReadable: boolean };
+
+const MAX_EXTRACTED = 5000;
 
 function AnalysePage() {
   const [tab, setTab] = useState<Tab>("text");
   const [message, setMessage] = useState("");
   const [file, setFile] = useState<File | null>(null);
+  const [extraction, setExtraction] = useState<Extraction>({ kind: "idle" });
+  const [extractedText, setExtractedText] = useState("");
   const [language, setLanguage] = useState<Language | "">("");
   const [confirmed, setConfirmed] = useState(false);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   const canSubmit = useMemo(() => {
     if (!language || !confirmed || status.kind === "loading") return false;
-    return tab === "text" ? isValidMessage(message) : file !== null;
-  }, [tab, message, file, language, confirmed, status.kind]);
+    return tab === "text"
+      ? isValidMessage(message)
+      : extraction.kind === "done" && isValidMessage(extractedText);
+  }, [tab, message, extraction, extractedText, language, confirmed, status.kind]);
+
+  function handleFileChange(f: File | null) {
+    setFile(f);
+    setExtraction({ kind: "idle" });
+    setExtractedText("");
+  }
+
+  async function extractText() {
+    if (!file || extraction.kind === "loading") return;
+    setExtraction({ kind: "loading" });
+    try {
+      const fd = new FormData();
+      fd.append("image", file);
+      const res = await fetch("/api/extract-text", { method: "POST", body: fd });
+      const json = (await res.json()) as ApiResponse<ExtractedScreenshotText>;
+      if (!json.success) {
+        setExtraction({ kind: "error", message: json.error.message });
+        return;
+      }
+      setExtractedText(json.data.extractedText);
+      setExtraction({ kind: "done", isReadable: json.data.isReadable });
+    } catch {
+      setExtraction({
+        kind: "error",
+        message: "Could not reach the extraction service. Please try again.",
+      });
+    }
+  }
 
   async function submit() {
     if (!canSubmit) return;
@@ -62,9 +108,9 @@ function AnalysePage() {
     try {
       const fd = new FormData();
       fd.append("language", language as string);
-      fd.append("inputType", tab);
-      if (tab === "text") fd.append("message", message.trim());
-      else if (file) fd.append("image", file);
+      // Screenshots are analysed via their reviewed extracted text.
+      fd.append("inputType", "text");
+      fd.append("message", (tab === "text" ? message : extractedText).trim());
 
       const res = await fetch("/api/analyse-scam", { method: "POST", body: fd });
       const json = (await res.json()) as ApiResponse<ScamAnalysisResult>;
@@ -85,6 +131,12 @@ function AnalysePage() {
     setStatus({ kind: "idle" });
     setMessage("");
     setFile(null);
+    setExtraction({ kind: "idle" });
+    setExtractedText("");
+  }
+
+  function clearResult() {
+    setStatus({ kind: "idle" });
   }
 
   return (
@@ -113,8 +165,82 @@ function AnalysePage() {
                 <TabsContent value="text" className="mt-4">
                   <MessageTextarea value={message} onChange={setMessage} />
                 </TabsContent>
-                <TabsContent value="image" className="mt-4">
-                  <ScreenshotUpload file={file} onChange={setFile} />
+                <TabsContent value="image" className="mt-4 space-y-4">
+                  <ScreenshotUpload file={file} onChange={handleFileChange} />
+
+                  {file && extraction.kind !== "done" && (
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      className="w-full"
+                      onClick={extractText}
+                      disabled={extraction.kind === "loading"}
+                    >
+                      {extraction.kind === "loading" ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Extracting text…
+                        </>
+                      ) : (
+                        <>
+                          <ScanText className="mr-2 h-4 w-4" />
+                          Extract Text from Screenshot
+                        </>
+                      )}
+                    </Button>
+                  )}
+
+                  {extraction.kind === "error" && (
+                    <p role="alert" className="text-sm text-destructive">
+                      {extraction.message}
+                    </p>
+                  )}
+
+                  {extraction.kind === "done" && (
+                    <div className="space-y-2">
+                      <div className="flex items-center justify-between">
+                        <Label htmlFor="extracted-text" className="text-sm font-medium">
+                          Review the extracted text
+                        </Label>
+                        <Button
+                          type="button"
+                          variant="ghost"
+                          size="sm"
+                          onClick={extractText}
+                        >
+                          Re-extract
+                        </Button>
+                      </div>
+                      {!extraction.isReadable && (
+                        <p className="rounded-md bg-risk-medium px-3 py-2 text-xs text-risk-medium-foreground">
+                          The screenshot could not be read clearly. Type the
+                          message text below yourself, or upload a clearer
+                          screenshot.
+                        </p>
+                      )}
+                      <Textarea
+                        id="extracted-text"
+                        value={extractedText}
+                        onChange={(e) => setExtractedText(e.target.value)}
+                        placeholder="The text read from your screenshot appears here — check and correct it before analysing..."
+                        rows={8}
+                        maxLength={MAX_EXTRACTED}
+                        aria-describedby="extracted-help"
+                        className="resize-y bg-surface"
+                      />
+                      <div
+                        id="extracted-help"
+                        className="flex flex-wrap items-center justify-between gap-2 text-xs text-muted-foreground"
+                      >
+                        <span>
+                          Fix any reading mistakes. Remove passwords or OTP codes.
+                        </span>
+                        <span>
+                          {extractedText.length} / {MAX_EXTRACTED}
+                        </span>
+                      </div>
+                    </div>
+                  )}
                 </TabsContent>
               </Tabs>
 
@@ -134,7 +260,7 @@ function AnalysePage() {
                   ? "Analysing…"
                   : tab === "text"
                     ? "Analyse Message"
-                    : "Analyse Screenshot"}
+                    : "Analyse Extracted Text"}
               </Button>
             </CardContent>
           </Card>
@@ -171,7 +297,11 @@ function AnalysePage() {
             </Card>
           )}
           {status.kind === "success" && (
-            <ResultView result={status.data} onReset={reset} />
+            <ResultView
+              result={status.data}
+              onReset={reset}
+              onClear={clearResult}
+            />
           )}
         </section>
       </div>

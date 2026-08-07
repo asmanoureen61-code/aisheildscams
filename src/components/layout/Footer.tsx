@@ -9,7 +9,7 @@ export function Footer() {
           <div className="flex items-center gap-2 font-semibold">
             <ShieldCheck className="h-5 w-5 text-accent" aria-hidden />
             <span>
-              ScamShield <span className="text-accent">AI</span>
+              Scam Detector <span className="text-accent">AI</span>
             </span>
           </div>
           <p className="mt-3 max-w-sm text-sm text-muted-foreground">
@@ -40,7 +40,7 @@ export function Footer() {
       </div>
       <div className="border-t border-border/70">
         <div className="container-page py-4 text-xs text-muted-foreground">
-          © {new Date().getFullYear()} ScamShield AI. Results are guidance, not a guarantee.
+          © {new Date().getFullYear()} Scam Detector AI. Results are guidance, not a guarantee.
         </div>
       </div>
     </footer>

@@ -1,7 +1,7 @@
-# ScamShield AI
+# Scam Detector AI
 
 AI-powered scam detection web app. Paste a suspicious WhatsApp / SMS / email
-message or upload a screenshot, and ScamShield AI will flag warning signs and
+message or upload a screenshot, and Scam Detector AI will flag warning signs and
 suggest safe next steps in **Simple English** or **Roman Urdu**.
 
 ## Features

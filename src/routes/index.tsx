@@ -22,13 +22,13 @@ import { PageShell } from "@/components/layout/PageShell";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "ScamShield AI — Check messages before you click, pay or share" },
+      { title: "Scam Detector AI — Check messages before you click, pay or share" },
       {
         name: "description",
         content:
-          "Paste a suspicious message or upload a screenshot. ScamShield AI identifies warning signs and explains safe next steps in Simple English or Roman Urdu.",
+          "Paste a suspicious message or upload a screenshot. Scam Detector AI identifies warning signs and explains safe next steps in Simple English or Roman Urdu.",
       },
-      { property: "og:title", content: "ScamShield AI — Scam message and screenshot analyser" },
+      { property: "og:title", content: "Scam Detector AI — Scam message and screenshot analyser" },
       {
         property: "og:description",
         content:
@@ -67,7 +67,7 @@ function Home() {
               Check Before You <span className="text-accent">Click, Pay or Share</span>
             </h1>
             <p className="mt-5 max-w-xl text-base text-white/80 sm:text-lg">
-              Paste a suspicious message or upload a screenshot. ScamShield AI
+              Paste a suspicious message or upload a screenshot. Scam Detector AI
               will identify warning signs and explain safe next steps in Simple
               English or Roman Urdu.
             </p>
@@ -119,7 +119,7 @@ function Home() {
         <div className="mb-10 max-w-2xl">
           <h2 className="text-3xl font-bold tracking-tight">Scam types we help with</h2>
           <p className="mt-3 text-muted-foreground">
-            ScamShield AI recognises common patterns across banking, jobs,
+            Scam Detector AI recognises common patterns across banking, jobs,
             shopping, investment and messaging scams.
           </p>
         </div>

@@ -2,7 +2,7 @@
 
 ## What we don't do
 
-- ScamShield AI does not intentionally permanently store submitted messages or screenshots.
+- Scam Detector AI does not intentionally permanently store submitted messages or screenshots.
 - Suspicious links are never opened or fetched by the server or displayed as clickable elements.
 - User-submitted content is treated as untrusted data. Instructions inside user content are never followed.
 - We do not log the raw content of user submissions.
@@ -25,6 +25,6 @@ back it with a shared store (KV / Redis / Durable Object).
 
 ## Reporting a security issue
 
-Please email security reports to `security@scamshield.example` (replace with
+Please email security reports to `security@scamdetector.example` (replace with
 your real address before launch). Please do not disclose the issue publicly
 before a fix is available.

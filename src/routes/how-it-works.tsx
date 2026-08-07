@@ -7,10 +7,10 @@ import { MessageSquareText, Sparkles, ShieldCheck } from "lucide-react";
 export const Route = createFileRoute("/how-it-works")({
   head: () => ({
     meta: [
-      { title: "How it works · ScamShield AI" },
+      { title: "How it works · Scam Detector AI" },
       { name: "description", content: "Three steps: paste or upload, AI checks warning signs, receive safety guidance." },
-      { property: "og:title", content: "How ScamShield AI works" },
-      { property: "og:description", content: "See the three-step scam analysis flow used by ScamShield AI." },
+      { property: "og:title", content: "How Scam Detector AI works" },
+      { property: "og:description", content: "See the three-step scam analysis flow used by Scam Detector AI." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -30,7 +30,7 @@ function HowItWorks() {
       <div className="container-page py-16">
         <h1 className="text-4xl font-bold tracking-tight">How it works</h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          ScamShield AI is designed to be cautious. It flags warning signs and
+          Scam Detector AI is designed to be cautious. It flags warning signs and
           recommends verification, but it never claims a message is 100% safe.
         </p>
         <div className="mt-10 grid gap-6 md:grid-cols-3">

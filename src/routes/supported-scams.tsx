@@ -8,10 +8,10 @@ import {
 export const Route = createFileRoute("/supported-scams")({
   head: () => ({
     meta: [
-      { title: "Supported scams · ScamShield AI" },
+      { title: "Supported scams · Scam Detector AI" },
       { name: "description", content: "Bank impersonation, fake jobs, prize scams, investment, loan, shopping, phishing and advance-payment scams." },
-      { property: "og:title", content: "Scam types ScamShield AI recognises" },
-      { property: "og:description", content: "A quick reference of the scam categories ScamShield AI can help flag." },
+      { property: "og:title", content: "Scam types Scam Detector AI recognises" },
+      { property: "og:description", content: "A quick reference of the scam categories Scam Detector AI can help flag." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -36,7 +36,7 @@ function SupportedScams() {
       <div className="container-page py-16">
         <h1 className="text-4xl font-bold tracking-tight">Scam types we cover</h1>
         <p className="mt-3 max-w-2xl text-muted-foreground">
-          These are the most common patterns ScamShield AI checks for. The tool
+          These are the most common patterns Scam Detector AI checks for. The tool
           may still miss new or unusual scams — always verify important messages
           through the organisation’s official channel.
         </p>

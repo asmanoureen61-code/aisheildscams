@@ -9,56 +9,22 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as TermsRouteImport } from './routes/terms'
-import { Route as SupportedScamsRouteImport } from './routes/supported-scams'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
-import { Route as SafetyTipsRouteImport } from './routes/safety-tips'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as HowItWorksRouteImport } from './routes/how-it-works'
-import { Route as DisclaimerRouteImport } from './routes/disclaimer'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as AnalyseRouteImport } from './routes/analyse'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnalyseRouteImport } from './routes/analyse'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as DisclaimerRouteImport } from './routes/disclaimer'
+import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as SafetyTipsRouteImport } from './routes/safety-tips'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as SupportedScamsRouteImport } from './routes/supported-scams'
+import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ApiAnalyseScamRouteImport } from './routes/api/analyse-scam'
+import { Route as ApiExtractTextRouteImport } from './routes/api/extract-text'
 
-const TermsRoute = TermsRouteImport.update({
-  id: '/terms',
-  path: '/terms',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SupportedScamsRoute = SupportedScamsRouteImport.update({
-  id: '/supported-scams',
-  path: '/supported-scams',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SafetyTipsRoute = SafetyTipsRouteImport.update({
-  id: '/safety-tips',
-  path: '/safety-tips',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PrivacyRoute = PrivacyRouteImport.update({
-  id: '/privacy',
-  path: '/privacy',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HowItWorksRoute = HowItWorksRouteImport.update({
-  id: '/how-it-works',
-  path: '/how-it-works',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DisclaimerRoute = DisclaimerRouteImport.update({
-  id: '/disclaimer',
-  path: '/disclaimer',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AnalyseRoute = AnalyseRouteImport.update({
@@ -66,14 +32,54 @@ const AnalyseRoute = AnalyseRouteImport.update({
   path: '/analyse',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DisclaimerRoute = DisclaimerRouteImport.update({
+  id: '/disclaimer',
+  path: '/disclaimer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HowItWorksRoute = HowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SafetyTipsRoute = SafetyTipsRouteImport.update({
+  id: '/safety-tips',
+  path: '/safety-tips',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportedScamsRoute = SupportedScamsRouteImport.update({
+  id: '/supported-scams',
+  path: '/supported-scams',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiAnalyseScamRoute = ApiAnalyseScamRouteImport.update({
   id: '/api/analyse-scam',
   path: '/api/analyse-scam',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiExtractTextRoute = ApiExtractTextRouteImport.update({
+  id: '/api/extract-text',
+  path: '/api/extract-text',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/supported-scams': typeof SupportedScamsRoute
   '/terms': typeof TermsRoute
   '/api/analyse-scam': typeof ApiAnalyseScamRoute
+  '/api/extract-text': typeof ApiExtractTextRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -102,6 +109,7 @@ export interface FileRoutesByTo {
   '/supported-scams': typeof SupportedScamsRoute
   '/terms': typeof TermsRoute
   '/api/analyse-scam': typeof ApiAnalyseScamRoute
+  '/api/extract-text': typeof ApiExtractTextRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -116,6 +124,7 @@ export interface FileRoutesById {
   '/supported-scams': typeof SupportedScamsRoute
   '/terms': typeof TermsRoute
   '/api/analyse-scam': typeof ApiAnalyseScamRoute
+  '/api/extract-text': typeof ApiExtractTextRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,6 +140,7 @@ export interface FileRouteTypes {
     | '/supported-scams'
     | '/terms'
     | '/api/analyse-scam'
+    | '/api/extract-text'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -144,6 +154,7 @@ export interface FileRouteTypes {
     | '/supported-scams'
     | '/terms'
     | '/api/analyse-scam'
+    | '/api/extract-text'
   id:
     | '__root__'
     | '/'
@@ -157,6 +168,7 @@ export interface FileRouteTypes {
     | '/supported-scams'
     | '/terms'
     | '/api/analyse-scam'
+    | '/api/extract-text'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -171,64 +183,16 @@ export interface RootRouteChildren {
   SupportedScamsRoute: typeof SupportedScamsRoute
   TermsRoute: typeof TermsRoute
   ApiAnalyseScamRoute: typeof ApiAnalyseScamRoute
+  ApiExtractTextRoute: typeof ApiExtractTextRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/terms': {
-      id: '/terms'
-      path: '/terms'
-      fullPath: '/terms'
-      preLoaderRoute: typeof TermsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/supported-scams': {
-      id: '/supported-scams'
-      path: '/supported-scams'
-      fullPath: '/supported-scams'
-      preLoaderRoute: typeof SupportedScamsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/safety-tips': {
-      id: '/safety-tips'
-      path: '/safety-tips'
-      fullPath: '/safety-tips'
-      preLoaderRoute: typeof SafetyTipsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/how-it-works': {
-      id: '/how-it-works'
-      path: '/how-it-works'
-      fullPath: '/how-it-works'
-      preLoaderRoute: typeof HowItWorksRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/disclaimer': {
-      id: '/disclaimer'
-      path: '/disclaimer'
-      fullPath: '/disclaimer'
-      preLoaderRoute: typeof DisclaimerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/analyse': {
@@ -238,11 +202,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AnalyseRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/disclaimer': {
+      id: '/disclaimer'
+      path: '/disclaimer'
+      fullPath: '/disclaimer'
+      preLoaderRoute: typeof DisclaimerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/safety-tips': {
+      id: '/safety-tips'
+      path: '/safety-tips'
+      fullPath: '/safety-tips'
+      preLoaderRoute: typeof SafetyTipsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/supported-scams': {
+      id: '/supported-scams'
+      path: '/supported-scams'
+      fullPath: '/supported-scams'
+      preLoaderRoute: typeof SupportedScamsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/analyse-scam': {
@@ -250,6 +263,13 @@ declare module '@tanstack/react-router' {
       path: '/api/analyse-scam'
       fullPath: '/api/analyse-scam'
       preLoaderRoute: typeof ApiAnalyseScamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/extract-text': {
+      id: '/api/extract-text'
+      path: '/api/extract-text'
+      fullPath: '/api/extract-text'
+      preLoaderRoute: typeof ApiExtractTextRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -267,7 +287,18 @@ const rootRouteChildren: RootRouteChildren = {
   SupportedScamsRoute: SupportedScamsRoute,
   TermsRoute: TermsRoute,
   ApiAnalyseScamRoute: ApiAnalyseScamRoute,
+  ApiExtractTextRoute: ApiExtractTextRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

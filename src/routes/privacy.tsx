@@ -4,10 +4,10 @@ import { PageShell } from "@/components/layout/PageShell";
 export const Route = createFileRoute("/privacy")({
   head: () => ({
     meta: [
-      { title: "Privacy · ScamShield AI" },
+      { title: "Privacy · Scam Detector AI" },
       { name: "description", content: "What we collect, what we don't store, and how AI processes your submitted content." },
-      { property: "og:title", content: "Privacy policy · ScamShield AI" },
-      { property: "og:description", content: "How ScamShield AI handles the messages and screenshots you submit." },
+      { property: "og:title", content: "Privacy policy · Scam Detector AI" },
+      { property: "og:description", content: "How Scam Detector AI handles the messages and screenshots you submit." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -37,7 +37,7 @@ function Privacy() {
 
         <h2 className="mt-6 text-xl font-semibold">Storage</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          ScamShield AI does not intentionally permanently store the messages or
+          Scam Detector AI does not intentionally permanently store the messages or
           screenshots you submit. The AI provider may process the content per
           their own data terms — please review those before relying on this
           service in a production setting.

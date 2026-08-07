@@ -5,10 +5,10 @@ import { AlertTriangle } from "lucide-react";
 export const Route = createFileRoute("/disclaimer")({
   head: () => ({
     meta: [
-      { title: "Disclaimer · ScamShield AI" },
+      { title: "Disclaimer · Scam Detector AI" },
       { name: "description", content: "AI results are guidance, not a guarantee. Always verify important messages independently." },
-      { property: "og:title", content: "Disclaimer · ScamShield AI" },
-      { property: "og:description", content: "Important limitations of the ScamShield AI scam analyser." },
+      { property: "og:title", content: "Disclaimer · Scam Detector AI" },
+      { property: "og:description", content: "Important limitations of the Scam Detector AI scam analyser." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -24,7 +24,7 @@ function Disclaimer() {
         <div className="mt-6 flex items-start gap-3 rounded-md border border-destructive/40 bg-destructive/5 p-4 text-sm">
           <AlertTriangle className="mt-0.5 h-5 w-5 flex-none text-destructive" aria-hidden />
           <p>
-            ScamShield AI can make mistakes. A “Low Risk” result does not mean a
+            Scam Detector AI can make mistakes. A “Low Risk” result does not mean a
             message is guaranteed safe. A “High Risk” result is not a legal
             finding of fraud.
           </p>

@@ -1,6 +1,54 @@
 export type RiskLevel = "low" | "medium" | "high" | "uncertain";
 
-export type Language = "simple-english" | "roman-urdu";
+export const SCAM_CATEGORIES = [
+  "bank-scam",
+  "phishing",
+  "fake-job",
+  "investment",
+  "prize",
+  "shopping",
+  "loan",
+  "advance-payment",
+  "unknown",
+] as const;
+
+export type ScamCategory = (typeof SCAM_CATEGORIES)[number];
+
+export const SCAM_CATEGORY_LABELS: Record<ScamCategory, string> = {
+  "bank-scam": "Bank Scam",
+  phishing: "Phishing",
+  "fake-job": "Fake Job",
+  investment: "Investment Scam",
+  prize: "Prize Scam",
+  shopping: "Shopping Scam",
+  loan: "Loan Scam",
+  "advance-payment": "Advance Payment Scam",
+  unknown: "No clear category detected",
+};
+
+export const LANGUAGES = [
+  "simple-english",
+  "roman-urdu",
+  "urdu",
+  "hindi",
+  "arabic",
+  "bengali",
+  "spanish",
+  "french",
+] as const;
+
+export type Language = (typeof LANGUAGES)[number];
+
+export const LANGUAGE_LABELS: Record<Language, string> = {
+  "simple-english": "Simple English",
+  "roman-urdu": "Roman Urdu",
+  urdu: "اردو (Urdu)",
+  hindi: "हिन्दी (Hindi)",
+  arabic: "العربية (Arabic)",
+  bengali: "বাংলা (Bengali)",
+  spanish: "Español (Spanish)",
+  french: "Français (French)",
+};
 
 export type InputType = "text" | "image";
 
@@ -9,17 +57,86 @@ export interface SuspiciousLink {
   concern: string;
 }
 
+export const WARNING_SIGN_TYPES = [
+  "urgency",
+  "threat",
+  "otp-request",
+  "payment-demand",
+  "suspicious-link",
+  "impersonation",
+  "personal-information",
+  "too-good-to-be-true",
+  "secrecy",
+  "other",
+] as const;
+
+export type WarningSignType = (typeof WARNING_SIGN_TYPES)[number];
+
+export interface WarningSign {
+  type: WarningSignType;
+  /** Short plain-language explanation of what was detected. */
+  detail: string;
+}
+
+export const WARNING_SIGN_LABELS: Record<WarningSignType, string> = {
+  urgency: "Urgency",
+  threat: "Threat",
+  "otp-request": "OTP request",
+  "payment-demand": "Payment demand",
+  "suspicious-link": "Suspicious link",
+  impersonation: "Impersonation",
+  "personal-information": "Personal information request",
+  "too-good-to-be-true": "Too good to be true",
+  secrecy: "Secrecy pressure",
+  other: "Warning sign",
+};
+
 export interface ScamAnalysisResult {
   riskLevel: RiskLevel;
-  scamCategory: string;
-  summary: string;
-  warningSigns: string[];
+  /** 0-100: how strongly the content matches known scam patterns. */
+  riskScore: number;
+  scamType: ScamCategory;
+  explanation: string;
+  /** Short explanation of why the content may be a scam, in the chosen language. */
+  scamReason: string;
+  warningSigns: WarningSign[];
   suspiciousRequests: string[];
   suspiciousLinks: SuspiciousLink[];
-  recommendedActions: string[];
+  /** Deterministic offline URL checks, computed without opening any link. */
+  linkChecks: UrlCheck[];
+  safeActions: string[];
   confidence: number;
   isReadable: boolean;
+  /** True when AI is not connected and this is offline demo output only. */
+  isDemo: boolean;
   disclaimer: string;
+}
+
+export type UrlCheckFindingKind =
+  | "shortener"
+  | "lookalike"
+  | "ip-address"
+  | "punycode"
+  | "suspicious-tld"
+  | "at-symbol"
+  | "insecure-http"
+  | "many-subdomains"
+  | "digit-substitution";
+
+export interface UrlCheckFinding {
+  kind: UrlCheckFindingKind;
+  note: string;
+}
+
+/** Offline check of a URL found in the submitted text. Links are never opened. */
+export interface UrlCheck {
+  url: string;
+  findings: UrlCheckFinding[];
+}
+
+export interface ExtractedScreenshotText {
+  extractedText: string;
+  isReadable: boolean;
 }
 
 export interface ApiSuccess<T> {
@@ -44,4 +161,4 @@ export const RISK_LABELS: Record<RiskLevel, string> = {
 };
 
 export const DEFAULT_DISCLAIMER =
-  "ScamShield AI provides general safety guidance. A low-risk result does not prove that a message is safe. Do not share passwords, OTP codes or financial information. Verify important messages through official channels.";
+  "Scam Detector AI provides general safety guidance. A low-risk result does not prove that a message is safe. Do not share passwords, OTP codes or financial information. Verify important messages through official channels.";

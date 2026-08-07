@@ -1,6 +1,6 @@
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import type { Language } from "@/types/scam";
+import { LANGUAGES, LANGUAGE_LABELS, type Language } from "@/types/scam";
 
 interface Props {
   value: Language | "";
@@ -16,18 +16,13 @@ export function LanguageSelector({ value, onChange }: Props) {
         onValueChange={(v) => onChange(v as Language)}
         className="grid grid-cols-2 gap-2"
       >
-        {(
-          [
-            { v: "simple-english", label: "Simple English" },
-            { v: "roman-urdu", label: "Roman Urdu" },
-          ] as const
-        ).map((o) => (
+        {LANGUAGES.map((v) => (
           <label
-            key={o.v}
+            key={v}
             className="flex cursor-pointer items-center gap-2 rounded-md border border-border bg-surface px-3 py-2 text-sm has-[:checked]:border-accent has-[:checked]:ring-1 has-[:checked]:ring-accent"
           >
-            <RadioGroupItem value={o.v} id={`lang-${o.v}`} />
-            <span>{o.label}</span>
+            <RadioGroupItem value={v} id={`lang-${v}`} />
+            <span>{LANGUAGE_LABELS[v]}</span>
           </label>
         ))}
       </RadioGroup>

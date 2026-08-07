@@ -20,7 +20,7 @@ export function Header() {
         <Link to="/" className="flex items-center gap-2 font-semibold tracking-tight">
           <ShieldCheck className="h-6 w-6 text-accent" aria-hidden />
           <span className="text-lg">
-            ScamShield <span className="text-accent">AI</span>
+            Scam Detector <span className="text-accent">AI</span>
           </span>
         </Link>
 

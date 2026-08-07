@@ -5,10 +5,10 @@ import { Mail } from "lucide-react";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact · ScamShield AI" },
-      { name: "description", content: "Get in touch about ScamShield AI — feedback, security reports, and general questions." },
-      { property: "og:title", content: "Contact · ScamShield AI" },
-      { property: "og:description", content: "Reach the ScamShield AI team." },
+      { title: "Contact · Scam Detector AI" },
+      { name: "description", content: "Get in touch about Scam Detector AI — feedback, security reports, and general questions." },
+      { property: "og:title", content: "Contact · Scam Detector AI" },
+      { property: "og:description", content: "Reach the Scam Detector AI team." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -26,7 +26,7 @@ function Contact() {
         </p>
         <div className="mt-8 flex items-center gap-3 rounded-md border border-border bg-surface p-4 text-sm">
           <Mail className="h-5 w-5 text-accent" aria-hidden />
-          <span className="font-mono">hello@scamshield.example</span>
+          <span className="font-mono">hello@scamdetector.example</span>
         </div>
         <p className="mt-4 text-xs text-muted-foreground">
           Replace the placeholder address with your project contact before

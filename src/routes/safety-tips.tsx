@@ -6,9 +6,9 @@ import { ShieldCheck } from "lucide-react";
 export const Route = createFileRoute("/safety-tips")({
   head: () => ({
     meta: [
-      { title: "Safety tips · ScamShield AI" },
+      { title: "Safety tips · Scam Detector AI" },
       { name: "description", content: "Practical scam-safety tips: never share OTPs, verify via official apps, slow down under pressure." },
-      { property: "og:title", content: "Safety tips from ScamShield AI" },
+      { property: "og:title", content: "Safety tips from Scam Detector AI" },
       { property: "og:description", content: "A short, practical guide to staying safe from common scams." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },

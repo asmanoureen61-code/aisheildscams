@@ -4,10 +4,10 @@ import { PageShell } from "@/components/layout/PageShell";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms of use · ScamShield AI" },
-      { name: "description", content: "Acceptable use, limitations and disclaimers for the ScamShield AI service." },
-      { property: "og:title", content: "Terms of use · ScamShield AI" },
-      { property: "og:description", content: "How you may use ScamShield AI and the limitations that apply." },
+      { title: "Terms of use · Scam Detector AI" },
+      { name: "description", content: "Acceptable use, limitations and disclaimers for the Scam Detector AI service." },
+      { property: "og:title", content: "Terms of use · Scam Detector AI" },
+      { property: "og:description", content: "How you may use Scam Detector AI and the limitations that apply." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -21,7 +21,7 @@ function Terms() {
       <article className="container-page max-w-3xl py-16">
         <h1 className="text-4xl font-bold tracking-tight">Terms of use</h1>
         <p className="mt-4 text-sm text-muted-foreground">
-          By using ScamShield AI you agree to the following terms.
+          By using Scam Detector AI you agree to the following terms.
         </p>
 
         <h2 className="mt-8 text-xl font-semibold">Acceptable use</h2>
@@ -40,7 +40,7 @@ function Terms() {
 
         <h2 className="mt-6 text-xl font-semibold">Not legal or financial advice</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          A risk assessment from ScamShield AI is not a legal finding of fraud
+          A risk assessment from Scam Detector AI is not a legal finding of fraud
           and is not financial advice.
         </p>
       </article>
