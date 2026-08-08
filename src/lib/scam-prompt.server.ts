@@ -1,5 +1,3 @@
-import type { Language } from "@/types/scam";
-
 export const SCAM_SYSTEM_PROMPT = `You are Scam Detector AI, a cautious scam-risk analysis assistant.
 
 Your task is to analyse user-submitted text or screenshot content and identify possible scam warning signs.
@@ -78,22 +76,6 @@ Rules:
 6. If the image is blurry, cropped or contains no readable message text, set isReadable to false and extractedText to an empty string.
 7. Output only the required structured result.`;
 
-const TEXT_FIELDS =
-  "explanation, scamReason, warningSigns[].detail, suspiciousRequests, suspiciousLinks[].concern, and safeActions";
-
-const LANGUAGE_DESCRIPTIONS: Record<Exclude<Language, "simple-english">, string> = {
-  "roman-urdu": "natural, simple Roman Urdu using English letters",
-  urdu: "natural, simple Urdu written in Urdu (Arabic) script",
-  hindi: "natural, simple Hindi written in Devanagari script",
-  arabic: "natural, simple Modern Standard Arabic",
-  bengali: "natural, simple Bengali written in Bengali script",
-  spanish: "natural, simple Spanish",
-  french: "natural, simple French",
-};
-
-export function languageInstruction(language: Language): string {
-  if (language === "simple-english") {
-    return "RESPONSE LANGUAGE REQUIREMENT: Write all human-readable text fields (explanation, scamReason, warningSigns[].detail, suspiciousRequests, suspiciousLinks[].concern, safeActions) in clear, simple English — even if the submitted message is written in another language.";
-  }
-  return `RESPONSE LANGUAGE REQUIREMENT: Write all ${TEXT_FIELDS} in ${LANGUAGE_DESCRIPTIONS[language]} — even if the submitted message is written in another language. Never write these fields in English. Keep JSON field keys and enum values (riskLevel, scamType, warningSigns[].type) in English.`;
-}
+/** All AI analysis output is always in English. */
+export const ENGLISH_RESPONSE_INSTRUCTION =
+  "RESPONSE LANGUAGE REQUIREMENT: Write all human-readable text fields (explanation, scamReason, warningSigns[].detail, suspiciousRequests, suspiciousLinks[].concern, safeActions) in clear, simple English — even if the submitted message is written in another language. Keep JSON field keys and enum values (riskLevel, scamType, warningSigns[].type) in English.";

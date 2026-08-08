@@ -185,6 +185,307 @@
     linear-gradient(180deg, oklch(0.16 0.04 255), oklch(0.22 0.05 255));
 }
 
+/* Navigation bar motion — keeps existing look, adds subtle motion only */
+@keyframes nav-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@utility animate-nav-fade-in {
+  animation: nav-fade-in 0.45s ease-out both;
+}
+
+/* Hero section premium motion */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-orb-drift {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(3%, -4%) scale(1.06);
+  }
+}
+
+@keyframes hero-orb-drift-alt {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-4%, 3%) scale(1.08);
+  }
+}
+
+@keyframes hero-card-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@utility animate-hero-fade-up {
+  animation: hero-fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility animate-hero-orb {
+  animation: hero-orb-drift 14s ease-in-out infinite;
+}
+
+@utility animate-hero-orb-alt {
+  animation: hero-orb-drift-alt 18s ease-in-out infinite;
+}
+
+@utility animate-hero-card-float {
+  animation: hero-card-float 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-nav-fade-in,
+  .animate-hero-fade-up,
+  .animate-hero-orb,
+  .animate-hero-orb-alt,
+  .animate-hero-card-float {
+    animation: none;
+  }
+
+  .nav-motion,
+  .nav-motion *,
+  .hero-motion,
+  .hero-motion * {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+
+  .cinematic-page,
+  .cinematic-layer {
+    transform: none !important;
+  }
+}
+
+/* ── Cinematic 3D scroll (GSAP + Lenis) ── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+html.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.cinematic-page {
+  perspective: 1400px;
+  perspective-origin: 50% 0%;
+}
+
+.cinematic-scene {
+  position: relative;
+  transform-style: preserve-3d;
+  isolation: isolate;
+}
+
+.cinematic-layer {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+[data-cine-card="scam"],
+[data-cine-step] {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* ── Hero 3D title sequence ── */
+.hero-intro {
+  perspective: 1300px;
+  perspective-origin: 50% 44%;
+}
+
+.hero-intro__camera {
+  transform-style: preserve-3d;
+  transform-origin: 50% 42%;
+}
+
+.hero-intro__atmosphere {
+  transform-style: preserve-3d;
+}
+
+.hero-intro__copy {
+  transform-style: preserve-3d;
+}
+
+.hero-intro__line {
+  display: block;
+}
+
+.hero-intro__line + .hero-intro__line {
+  margin-top: 0.06em;
+}
+
+.hero-intro__line-part {
+  display: inline;
+}
+
+.hero-intro__word {
+  display: inline-flex;
+  margin-right: 0;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 3px 10px rgba(0, 0, 0, 0.28));
+}
+
+.hero-intro__letter {
+  display: inline-block;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform, opacity, filter;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.hero-intro--complete .hero-intro__letter {
+  will-change: auto;
+}
+
+/* ── Cinematic blue/white hero + motion graphics ── */
+.hero-cinematic {
+  isolation: isolate;
+}
+
+.hero-mg-rig {
+  transform-style: preserve-3d;
+  perspective: 1200px;
+  background: #000000;
+}
+
+.hero-mg-layer {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+.hero-mg-shape {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+.hero-mg-canvas {
+  opacity: 0.85;
+}
+
+.hero-mg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+.hero-cinematic__content {
+  transform-style: preserve-3d;
+  text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
+}
+
+.hero-cinematic__title {
+  font-size: clamp(1.75rem, 3.2vw, 2.625rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+  filter: none;
+  transform: translateZ(0);
+}
+
+.hero-cinematic__title .hero-intro__letter {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.55),
+    0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.hero-cinematic__title .text-sky-300 .hero-intro__letter {
+  text-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.5),
+    0 2px 8px rgba(56, 189, 248, 0.22);
+}
+
+.hero-cinematic__title .text-sky-300 .hero-intro__word {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.4))
+    drop-shadow(0 3px 12px rgba(56, 189, 248, 0.18));
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-intro:not(.hero-intro--complete) [data-hero-reveal] {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-intro__letter {
+    will-change: auto;
+    filter: none !important;
+    transform: none !important;
+  }
+}
+
+/* ── Hero AI scan card ── */
+.hero-scan-line {
+  top: 0%;
+}
+
+.hero-scan-highlight {
+  background-image: linear-gradient(
+    rgba(34, 211, 238, 0.22),
+    rgba(34, 211, 238, 0.22)
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  background-position: left center;
+}
+
+/* ── Section motion enhancements ── */
+.cine-card-3d {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.cine-step-card {
+  transform-style: preserve-3d;
+  transition: border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.cine-step-card:hover {
+  border-color: color-mix(in oklch, var(--accent) 35%, var(--border));
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+}
+
+.privacy-item {
+  border-radius: 0.5rem;
+  padding: 0.35rem 0.5rem;
+  margin: -0.35rem -0.5rem;
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
+}
+
+.privacy-item:hover {
+  transform: translateX(4px);
+  background-color: color-mix(in oklch, var(--accent) 8%, transparent);
+}
+
 @media print {
   .no-print { display: none !important; }
   body { background: white !important; color: black !important; }

@@ -3,18 +3,19 @@ import { generateText, Output, NoObjectGeneratedError } from "ai";
 import { z } from "zod";
 
 import { createLovableAiGatewayProvider } from "@/lib/ai-gateway.server";
-import { SCAM_SYSTEM_PROMPT, languageInstruction } from "@/lib/scam-prompt.server";
+import {
+  SCAM_SYSTEM_PROMPT,
+  ENGLISH_RESPONSE_INSTRUCTION,
+} from "@/lib/scam-prompt.server";
 import { maskSensitive, maskArray } from "@/lib/masking";
 import { checkRateLimit } from "@/lib/rate-limit.server";
 import { analyseUrls } from "@/lib/url-analysis";
 import { buildDemoAnalysis } from "@/lib/demo-analysis";
 import {
   DEFAULT_DISCLAIMER,
-  LANGUAGES,
   SCAM_CATEGORIES,
   WARNING_SIGN_TYPES,
   type ApiResponse,
-  type Language,
   type ScamAnalysisResult,
 } from "@/types/scam";
 
@@ -27,7 +28,6 @@ const ALLOWED_IMAGE_TYPES = new Set([
   "image/png",
   "image/webp",
 ]);
-const SUPPORTED_LANGUAGES = new Set<string>(LANGUAGES);
 
 const ResultSchema = z.object({
   riskLevel: z.enum(["low", "medium", "high", "uncertain"]),
@@ -170,11 +170,7 @@ export const Route = createFileRoute("/api/analyse-scam")({
         }
 
         const inputType = String(form.get("inputType") ?? "");
-        const language = String(form.get("language") ?? "");
 
-        if (!SUPPORTED_LANGUAGES.has(language)) {
-          return fail("INVALID_INPUT", "Please choose a supported language.");
-        }
         if (inputType !== "text" && inputType !== "image") {
           return fail("INVALID_INPUT", "Please provide a valid message or screenshot.");
         }
@@ -195,10 +191,8 @@ export const Route = createFileRoute("/api/analyse-scam")({
           if (raw.length > MAX_TEXT) {
             return fail("INVALID_INPUT", `Message is too long (max ${MAX_TEXT} characters).`);
           }
-          return ok(buildDemoAnalysis(raw, language as Language));
+          return ok(buildDemoAnalysis(raw));
         }
-
-        const languageDirective = languageInstruction(language as Language);
 
         type ContentBlock =
           | { type: "text"; text: string }
@@ -253,7 +247,7 @@ export const Route = createFileRoute("/api/analyse-scam")({
         try {
           const { output } = await generateText({
             model,
-            system: `${SCAM_SYSTEM_PROMPT}\n\n${languageDirective}`,
+            system: `${SCAM_SYSTEM_PROMPT}\n\n${ENGLISH_RESPONSE_INSTRUCTION}`,
             messages: [{ role: "user", content }],
             output: Output.object({ schema: ResultSchema }),
             abortSignal: AbortSignal.timeout(45_000),

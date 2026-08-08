@@ -24,8 +24,8 @@ function Privacy() {
 
         <h2 className="mt-8 text-xl font-semibold">What you provide</h2>
         <p className="mt-2 text-sm text-muted-foreground">
-          You may paste message text or upload a screenshot. You choose whether
-          your response is in Simple English or Roman Urdu.
+          You may paste message text or upload a screenshot. Analysis results
+          are returned in English.
         </p>
 
         <h2 className="mt-6 text-xl font-semibold">Why content is sent to an AI service</h2>

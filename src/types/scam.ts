@@ -26,30 +26,6 @@ export const SCAM_CATEGORY_LABELS: Record<ScamCategory, string> = {
   unknown: "No clear category detected",
 };
 
-export const LANGUAGES = [
-  "simple-english",
-  "roman-urdu",
-  "urdu",
-  "hindi",
-  "arabic",
-  "bengali",
-  "spanish",
-  "french",
-] as const;
-
-export type Language = (typeof LANGUAGES)[number];
-
-export const LANGUAGE_LABELS: Record<Language, string> = {
-  "simple-english": "Simple English",
-  "roman-urdu": "Roman Urdu",
-  urdu: "اردو (Urdu)",
-  hindi: "हिन्दी (Hindi)",
-  arabic: "العربية (Arabic)",
-  bengali: "বাংলা (Bengali)",
-  spanish: "Español (Spanish)",
-  french: "Français (French)",
-};
-
 export type InputType = "text" | "image";
 
 export interface SuspiciousLink {
@@ -97,7 +73,7 @@ export interface ScamAnalysisResult {
   riskScore: number;
   scamType: ScamCategory;
   explanation: string;
-  /** Short explanation of why the content may be a scam, in the chosen language. */
+  /** Short explanation of why the content may be a scam. */
   scamReason: string;
   warningSigns: WarningSign[];
   suspiciousRequests: string[];

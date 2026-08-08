@@ -8,7 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { LanguageSelector } from "@/components/scam/LanguageSelector";
 import { MessageTextarea, isValidMessage } from "@/components/scam/MessageTextarea";
 import { ScreenshotUpload } from "@/components/scam/ScreenshotUpload";
 import { PrivacyNotice } from "@/components/scam/PrivacyNotice";
@@ -17,7 +16,6 @@ import { ResultSkeleton, ResultView } from "@/components/scam/ResultView";
 import type {
   ApiResponse,
   ExtractedScreenshotText,
-  Language,
   ScamAnalysisResult,
 } from "@/types/scam";
 
@@ -34,7 +32,7 @@ export const Route = createFileRoute("/analyse")({
       {
         property: "og:description",
         content:
-          "Get an AI risk assessment for suspicious text messages and screenshots in Simple English or Roman Urdu.",
+          "Get an AI risk assessment for suspicious text messages and screenshots in clear English.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -63,16 +61,15 @@ function AnalysePage() {
   const [file, setFile] = useState<File | null>(null);
   const [extraction, setExtraction] = useState<Extraction>({ kind: "idle" });
   const [extractedText, setExtractedText] = useState("");
-  const [language, setLanguage] = useState<Language | "">("");
   const [confirmed, setConfirmed] = useState(false);
   const [status, setStatus] = useState<Status>({ kind: "idle" });
 
   const canSubmit = useMemo(() => {
-    if (!language || !confirmed || status.kind === "loading") return false;
+    if (!confirmed || status.kind === "loading") return false;
     return tab === "text"
       ? isValidMessage(message)
       : extraction.kind === "done" && isValidMessage(extractedText);
-  }, [tab, message, extraction, extractedText, language, confirmed, status.kind]);
+  }, [tab, message, extraction, extractedText, confirmed, status.kind]);
 
   function handleFileChange(f: File | null) {
     setFile(f);
@@ -107,7 +104,6 @@ function AnalysePage() {
     setStatus({ kind: "loading" });
     try {
       const fd = new FormData();
-      fd.append("language", language as string);
       // Screenshots are analysed via their reviewed extracted text.
       fd.append("inputType", "text");
       fd.append("message", (tab === "text" ? message : extractedText).trim());
@@ -147,8 +143,8 @@ function AnalysePage() {
           <div className="mb-6">
             <h1 className="text-3xl font-bold tracking-tight">Analyse a message</h1>
             <p className="mt-2 text-muted-foreground">
-              Paste a suspicious message or upload a screenshot. Choose the
-              response language and confirm the disclaimer to continue.
+              Paste a suspicious message or upload a screenshot, then confirm
+              the disclaimer to continue. Results are returned in English.
             </p>
           </div>
 
@@ -245,7 +241,6 @@ function AnalysePage() {
               </Tabs>
 
               <div className="mt-6 space-y-4">
-                <LanguageSelector value={language} onChange={setLanguage} />
                 <PrivacyNotice />
                 <ConfirmationCheckbox checked={confirmed} onChange={setConfirmed} />
               </div>
