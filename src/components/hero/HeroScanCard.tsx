@@ -29,7 +29,7 @@ export function HeroScanCard({ sectionRef }: Props) {
     <div
       ref={cardRef}
       data-hero-scan-card
-      className="hero-scan-card relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.06] p-6 shadow-[0_32px_80px_rgba(0,0,0,0.5)] backdrop-blur-md"
+      className="hero-scan-card relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.06] p-4 shadow-[0_32px_80px_rgba(0,0,0,0.5)] backdrop-blur-md sm:p-6"
     >
       <div
         data-scan-line

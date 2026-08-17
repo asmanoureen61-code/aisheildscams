@@ -86,13 +86,13 @@ export function HeroIntroSection() {
     <section
       ref={sectionRef}
       data-hero-intro
-      className="hero-cinematic hero-intro hero-motion relative min-h-[92dvh] overflow-hidden bg-black text-white"
+      className="hero-cinematic hero-intro hero-motion relative bg-black text-white max-md:overflow-x-hidden md:min-h-[92dvh] md:overflow-hidden"
     >
       <HeroMotionBackground />
 
       <div
         data-hero-camera
-        className="hero-intro__camera hero-cinematic__content relative z-10 flex min-h-[92dvh] items-end pb-[11vh] md:pb-[14vh]"
+        className="hero-intro__camera hero-cinematic__content relative z-10 flex max-md:py-10 max-md:pb-12 md:min-h-[92dvh] md:items-end md:pb-[14vh]"
       >
         <div
           data-hero-atmosphere
@@ -100,8 +100,8 @@ export function HeroIntroSection() {
           aria-hidden
         />
 
-        <div className="container-page grid w-full gap-12 md:grid-cols-2 md:items-end md:gap-14">
-          <div className="hero-intro__copy pt-4 md:pt-0">
+        <div className="container-page grid w-full gap-8 max-md:gap-6 md:grid-cols-2 md:items-end md:gap-14">
+          <div className="hero-intro__copy max-md:pt-2 md:pt-0">
             <h1
               className="hero-cinematic__title font-bold"
               aria-label={staticHeadline}
@@ -154,7 +154,11 @@ export function HeroIntroSection() {
             </div>
           </div>
 
-          <div data-hero-visual data-hero-reveal className="relative hidden md:block">
+          <div
+            data-hero-visual
+            data-hero-reveal
+            className="hero-intro__visual relative w-full max-md:max-w-full md:mt-0"
+          >
             <HeroScanCard sectionRef={sectionRef} />
           </div>
         </div>
